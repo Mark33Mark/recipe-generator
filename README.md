@@ -1,4 +1,4 @@
-![Mark Watson](./img/PNG_earth_satellite_660x342px.png)
+![Mark Watson](./img/PNG_table_setting_1000x593px.png)
 # USYD-FSF Week 7 Team Project
 ## Project 1: Recipe Generator
 
