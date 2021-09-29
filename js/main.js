@@ -22,14 +22,11 @@ let ingredients;
 
 /* ========================================================================================== */
 
-initialise();
+getTodaysRecipe ();
 
 /* ========================================================================================== */
 
-function initialise(){
-  
 
-  }
 
 /* ========================================================================================== */
 
@@ -63,15 +60,13 @@ function createDefaultUserPref (){
 
 
 
-
-
-
-
 /* == Fetch data ================================================================================= */ 
   
 function getTodaysRecipe ( ) {
 
-  let apiURL = `https://api.spoonacular.com/food/wine/pairing?food=${textValue}&appid=${spoonacularAPI}`;
+  // let apiURL = `https://api.spoonacular.com/recipes/visualizeRecipe?appid=${spoonacularAPI}`;
+  
+  let apiURL = `https://api.spoonacular.com/recipes/complexSearch?query=pasta&maxFat=25&number=2&apiKey=${spoonacularAPI}`;
 
   fetch( apiURL )
 
@@ -82,11 +77,7 @@ function getTodaysRecipe ( ) {
         .then(function ( data ) {
 
             console.log( data );
-            let lat = data.coord.lat;
-            let lon = data.coord.lon;
-            let name = data.name;
-            let country = data.sys.country;
-            getTodayUV( lat, lon, name, country );
+
 
           });
           } else {
@@ -94,7 +85,6 @@ function getTodaysRecipe ( ) {
           } 
     });
 };
-
 
 /* ====================================================================================== */ 
 
