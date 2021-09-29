@@ -9,124 +9,93 @@
  *                                                                                             *
  * =========================================================================================== */
 
-
-
-
-
 let spoonacularAPI  = "3f02a89ca80e407492794df034986041";
+
+let userIngredient   = document.querySelector("#recipeIngredient");
+let recipesFound    = document.querySelector("#theRecipes");
+let searchForm      = document.querySelector("#search-form");
+
+let recipeList    = document.createElement( "DIV" );
+let table         = document.createElement( "TABLE" );
+let tableBody     = document.createElement( "TBODY" );
 
 
 let ingredient      = [];
 let userPref        = [];
 let ingredients;
 
-/* ========================================================================================== */
 
-getTodaysRecipe ();
-
-/* ========================================================================================== */
+/* ============================================================================================= */
 
 
+function handleIngredientEntered( event ) {
 
-/* ========================================================================================== */
+    event.preventDefault();  
 
-function storedPrefs (){
+    let keyIngredient = userIngredient.value; 
 
-  storedPreferences = JSON.parse(localStorage.getItem("preferences"));
-  document.getElementById('id01').style.display="block";
+    getTodaysRecipe( keyIngredient );
+    console.log( keyIngredient );
 
-  if (storedPreferences !== null) {  
-    userPref = storedPreferences;
-
-    if( userPref[2]!== null ){ 
-      document.getElementById( userPref[2] ).checked      = true;
-    } else {
-      document.getElementById( "date-day" ).checked       = true;
     }
-  } else { 
-    createDefaultUserPref ();
-  }
-}
-
-/* ====================================================================================== */ 
-
-function createDefaultUserPref (){
-
-
-}
-
-/* ====================================================================================== */ 
-
-
 
 
 /* == Fetch data ================================================================================= */ 
   
-function getTodaysRecipe ( ) {
+function getTodaysRecipe ( ingredientProvided ) {
 
-  // let apiURL = `https://api.spoonacular.com/recipes/visualizeRecipe?appid=${spoonacularAPI}`;
-  
-  let apiURL = `https://api.spoonacular.com/recipes/complexSearch?query=pasta&maxFat=25&number=2&apiKey=${spoonacularAPI}`;
+  let apiURL = `https://api.spoonacular.com/recipes/complexSearch?query=${ingredientProvided}&apiKey=${spoonacularAPI}`;
 
   fetch( apiURL )
 
     .then(function ( response ) {
       if ( response.ok ) {
       response.json()
+      
 
         .then(function ( data ) {
 
             console.log( data );
+            listMe( data );
 
 
-          });
+          }); console.log(ingredientProvided);
           } else {
             alert("I can't find that ingredient, check your spelling or possibly I just don't have data for that ingredient.");
           } 
     });
 };
 
-/* ====================================================================================== */ 
+/* =========================================================================================== */
+
+function listMe( recipes ) {
 
 
 
 
+  for ( let i = 0; i <= recipes.results.length-1; i++ ){
 
-/* ====================================================================================== */ 
+    console.log(recipes.results[i].title);
 
+    let recipeItem  = document.createElement("div");
 
-
-/* ====================================================================================== */ 
-
-
-
-/* ====================================================================================== */ 
-
-
-
-/* ====================================================================================== */ 
+    recipeItem.classList    = "w3-btn w3-large w3-dark-grey w3-hover-light-grey w3-col w3-s10";
+    recipeItem.setAttribute( "id", "recipe" + i );
+    recipeItem.textContent = recipes.results[i].title;
+    recipesFound.prepend(recipeItem); 
 
 
 
-
-/* == User Preference Events ============================================================ */ 
-
-function userDatePref( clicked_object ) {
-  userPref[2] = clicked_object.id;   
-  localStorage.setItem( "preferences", JSON.stringify(  userPref  )); 
-  return;
-};
-
-/* ====================================================================================== */ 
-
-
-
-function storeUserPref(){
-  localStorage.setItem("preferences", JSON.stringify( UserPref ));
+  }
 }
 
 
 
+/* =========================================================================================== */
 
-/* ====================================================================================== 
-   ====================================================================================== */ 
+
+searchForm.addEventListener('submit', handleIngredientEntered);
+
+
+/* ============================================================================================ 
+   ============================================================================================ */ 
