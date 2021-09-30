@@ -36,17 +36,18 @@
   --sunset-sky: rgba(191, 153, 153, 1);
 }
 
-/* == 12. Project Specific Settings ======================================================== */
+/* == Project Specific Settings ============================================================== */
 
 .form-wrapper button {
   overflow: visible;
   position: relative;
-  margin-top: -2.48rem;
+  margin-top: -2.83rem;
+  margin-right: 0.15rem;
   float: right;
   border: 0;
   padding: 0;
   cursor: pointer;
-  height: 2.38rem;
+  height: 2.7rem;
   width: 50px;
   font: bold 15px/40px "lucida sans", "trebuchet MS", "Tahoma";
   color: #fff;
@@ -57,12 +58,12 @@
 }
 
 .form-wrapper button:hover {
-  background: #f0a377;
+  background: var(--sky-blue);
 }
 
 .form-wrapper button:active,
 .form-wrapper button:focus {
-  background: #e4a069;
+  background: var(--sky-blue);
   outline: 0;
 }
 
@@ -78,12 +79,12 @@
 }
 
 .form-wrapper button:hover:before {
-  border-right-color: #e4a069;
+  border-right-color: var(--sky-blue);
 }
 
 .form-wrapper button:focus:before,
 .form-wrapper button:active:before {
-  border-right-color: #e4a069;
+  border-right-color: var(--sky-blue);
 }
 
 /* removes extra button spacing for Mozilla Firefox */
@@ -91,7 +92,6 @@
   border: 0;
   padding: 0;
 }
-
 
 .recipe-generator {
   min-height: calc(100vh - 3rem);
@@ -124,6 +124,7 @@
   overflow: hidden;
   box-shadow: 0 4px 21px -12px rgba(0, 0, 0, 0.79);
   margin: 2rem 0;
+  display:
 }
 
 .meal-img img{
@@ -167,7 +168,6 @@
   background: var(--ocean-blue);
 }
 
-
 .meal-details{
   position: fixed;
   top: 50%;
@@ -188,7 +188,7 @@
   height: 90%;
   overflow-y: scroll;
   display: none;
-  padding: 2rem 0;
+  padding: 2rem 2rem;
 }
 
 .meal-details::-webkit-scrollbar{
@@ -272,8 +272,8 @@
 }
 
 .recipe-meal-img img{
-  width: 100px;
-  height: 100px;
+  max-width: 30rem;
+  max-height: 30rem;
   border-radius: 50%;
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
@@ -301,7 +301,6 @@
   opacity: 0.8;
 }
 
-
 .notFound{
   grid-template-columns: 1fr!important;
   color: var(--ocean-blue);
@@ -310,6 +309,33 @@
   width: 100%;
 }
 
+/* ============================================================= */
+
+@media (max-width: 601px) {
+
+  .meal-name h3{
+    font-size: 1.1rem;
+  }
+
+  .recipe-btn{
+    width: 6rem;
+    font-size: 0.9rem;
+  }
+
+  .recipe-card{
+    min-width: 8rem;
+    margin: 0.5rem 0.5rem!important;
+  }
+
+  .meal-name{
+    padding: 0.5rem 0.25rem;
+  }
+
+  .search-bar{
+    margin-top: 1rem !important;
+  }
+
+}
 
 
 /* ==================================================================================== 

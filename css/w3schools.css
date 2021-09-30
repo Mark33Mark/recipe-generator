@@ -776,7 +776,7 @@ a {
 }
 
 .w3-hide {
-  display: none !important;
+  display: none;
 }
 .w3-show-block,
 .w3-show {
@@ -1285,7 +1285,7 @@ a {
 }
 
 .w3-margin {
-  margin: 16px !important;
+  margin: 16px;
 }
 .w3-margin-top {
   margin-top: 16px !important;
