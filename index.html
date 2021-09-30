@@ -1,4 +1,3 @@
-
 <!-- ================================================================================================== 
 
       Recipe Generator - HTML file
@@ -8,164 +7,252 @@
 
     ================================================================================================ -->
 
-    <!DOCTYPE html>
-    <html>
-      <head>
-        <meta charset     = "utf-8" >
-        <meta http-equiv  = "X-UA-Compatible" content = "IE=edge" >
-        <meta name        = "description"     content = "recipe generator"  >
-        <meta name        = "viewport"        content = "width=device-width, initial-scale=1"  >
-    
-        <title> Recipe Generator </title>
-        
-        <link 
-            rel   = "stylesheet" 
-            href  = "./css/style.css"
-        />
-    
-        <script
-          type    = "text/javascript"
-          src     = "./js/moment/moment.js"
-        ></script>
-    
-        <link 
-          rel     = "shortcut icon" 
-          href    = "img/favicon.ico?ver=1.0" 
-          type    = "image/x-icon" 
-        />
-    
-        <link 
-          rel     = "icon" 
-          href    = "img/favicon.ico?ver=1.0" 
-          type    = "image/x-icon" 
-        />
-    
-      </head>
-    
-      <!-- ============================================================================================= -->
-        
-      <body>      
-        <div class  = "recipe-generator" >
-    
-          <header class = "container theme padding" 
-                  style = "display: flex; flex-direction: column; align-items: center;" 
-                  id    = "myHeader"
-          >
-            <div class  = "center"  >
-              <h1 class = "xxxlarge animate-zoom" id  = "app-name" >  Recipe Generator </h1>
-              <div class  = "padding" >
-                <button class   = "btn large dark-grey hover-light-grey" 
-                        onclick = "storedPrefs()" 
-                        style   = "font-weight:900;">
-                  <i class="icon-equalizer"></i>
-                </button>
-              </div>
-            </div>
-          </header>
-          
-          <!-- == Configuration modal ================================================================== -->
-          
-          <div id = "id01" class  = "modal">
-            <div class  = "modal-content card-4 animate-top"  >
-              <header class = "container theme-l1"  > 
-                <span onclick = "document.getElementById('id01').style.display  = 'none'; location.reload();"
-                      class   = "button display-topright" >
-                  <i class = "icon-cross"> </i>  
-                </span>
-                <h2>  Settings  </h2>
-              </header>
-    
-              <div class  = "container" > 
-                <div class  = "row" >
-    
-                  <div class  = "third padding-16"  >
-                    <h4 style = "font-weight: 600;">  User Preferences: </h4>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="recipe generator" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-                  </div>
-    
-                  <div class="third padding-16">
-                    <h4 style = "font-weight: 600;">User Likes:</h4>
-                  
-                  </div>
-    
-                  <div class="third padding-16">
-                    <h4 style = "font-weight: 600;">Date:</h4>
-                    <input  id    = "date-day"          class   = "radio" 
-                            type  = "radio"             name    = "date" 
-                            value = "dd-mm-yyyy"        onclick = "userDatePref(this)" >
-                    <label  class = "small"> dd-mm-yyyy <br />  &nbsp&nbsp&nbsp (21-01-2021)  </label> <br />
-                    
-                    <input  id    = "date-month"        class   = "radio" 
-                            type  = "radio"             name    = "date" 
-                            value = "mm-dd-yyyy"        onclick = "userDatePref(this)" >
-                    <label  class = "small"> mm-dd-yyyy <br />  &nbsp&nbsp&nbsp (01-21-2021)  </label>
-                    <br />
-                    <input  id    = "date-year"         class   = "radio" 
-                            type  = "radio"             name    = "date" 
-                            value = "yyyy-mm-dd"        onclick = "userDatePref(this)" >
-                    <label  class = "small"> yyyy-mm-dd <br />  &nbsp&nbsp&nbsp(2021-01-21) </label> <br />
-                  </div> 
-                </div>
-              </div>
-            </div>
+    <title>Recipe Generator</title>
+
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="./css/w3schools.css" />
+
+    <script type="text/javascript" src="./js/moment/moment.js"></script>
+
+    <link
+      rel="shortcut icon"
+      href="img/favicon.ico?ver=1.0"
+      type="image/x-icon"
+    />
+
+    <link rel="icon" href="img/favicon.ico?ver=1.0" type="image/x-icon" />
+  </head>
+
+  <!-- ============================================================================================= -->
+
+  <body>
+
+      <header class="w3-container" id="myHeader">
+        <div class="w3-center">
+          <h1 class="w3-xxxlarge w3-animate-zoom" id="app-name">
+            Recipe Generator
+          </h1>
+        </div>
+      </header>
+
+      <!-- == Search Bar =========================================================================== -->
+
+      <div class="w3-container w3-modal-content search-bar" style="max-width: 50rem; max-height:10rem; margin-top:3rem;">
+        <form id="search-form" class="form-wrapper">
+          <div class="w3-section w3-left-align">
+            <input
+              id="recipeIngredient"
+              class="w3-input w3-large"
+              type="text"
+              placeholder="ingredient please "
+            />
+            <button id="submitButton">
+              <i class="icon-search"></i>
+            </button>
           </div>
-          
-          <!-- == Search Bar =========================================================================== -->
-    
-          <div class  = "row-padding center margin-top">
-            <div class  = "quarter">
-              <div class  = "card container mobile-screen-900" style  = "min-height:55rem"  >
-                <h3 class = "left-align ">  Start search  </h3>
-                
-                <form class = "form-wrapper"  >
-                  <div class  = "section left-align"  >
-                    <div style  = "position:relative; " class =  "tooltip small"  >
-                      <input id =  "cityName" class = "input medium" type = "text" placeholder  = "provide ingredient" >
-                      <button id  = "submitButton" onclick  = "buttonCityEntered()" type  = "submit"  >
-                        <i class  = "icon-search" ></i>
-                      </button>
-                      <hr />
-                      <span class = "text theme-light padding"  > You can press &ltEnter&gt key instead of 
-                                                                  clicking the search button.
-                      </span>  
-                    </div>
-                  </div>
-                </form>
-                <div id = "keyIngredient" >  </div>
-              </div>
-            </div>
-          
-            <!-- ========================================================================================= -->
-    
+        </form>
+      </div>
 
-
-            
-    
-
+      <div id="userPref" class="w3-modal">
+        <div class="w3-modal-content w3-card-4">
+          <header class="w3-container w3-teal"> 
+            <span onclick="userPrefModalClosed( )" class="w3-button w3-display-topright">&times;
+            </span>
+            <h2>Recipe Filter</h2>
+          </header>
+          <div class="w3-container">
+            <table class="w3-table">
+              <tr>
+                <th>Meal Type</th>
+                <th>Dietary</th>
+                <th>Intolerances</th>
+              </tr>
+              <tr>
+                <td>   
+                  <input id="mealBreakfast" class="w3-radio" type="radio" name="mealType" value="breakfast" onclick = "userMealPref(this)">
+                  <label>breakfast</label>
+                </td>
+                <td>
+                  <input id="dietGlutenFree" class="w3-radio" type="radio" name="dietary" value="glutenFree" onclick = "userDietaryPref(this)">
+                  <label>gluten free</label></td>
+                <td>
+                  <input id="intolDairy" class="w3-check" type="checkbox" name="intolerances" value="dairy" onclick = "userIntolPref(this)">
+                  <label>dairy</label></td>
+                </td>
+              </tr>
+              <tr>
+                <td>   
+                  <input id="mealSnack" class="w3-radio" type="radio" name="mealType" value="snack" onclick = "userMealPref(this)">
+                  <label>snack</label>
+                </td>
+                <td>
+                  <input id="dietKeto" class="w3-radio" type="radio" name="dietary" value="ketogenic" onclick = "userDietaryPref(this)">
+                  <label>ketogenic</label></td>
+                <td>
+                  <input id="intolEgg" class="w3-check" type="checkbox" name="intolerances" value="egg" onclick = "userIntolPref(this)">
+                  <label>egg</label></td>
+                </td>
+              </tr>
+              <tr>
+                <td>   
+                  <input id="mealStarter" class="w3-radio" type="radio" name="mealType" value="starter" onclick = "userMealPref(this)">
+                  <label>starter</label>
+                </td>
+                <td>
+                  <input id="dietLacto" class="w3-radio" type="radio" name="dietary" value="lactoVegetarian" onclick = "userDietaryPref(this)">
+                  <label>lacto vegetarian</label></td>
+                <td>
+                  <input id="intolGluten" class="w3-check" type="checkbox" name="intolerances" value="gluten" onclick = "userIntolPref(this)">
+                  <label>gluten</label></td>
+                </td>
+              </tr>
+              <tr>
+                <td>   
+                  <input id="mealMain" class="w3-radio" type="radio" name="mealType" value="main" onclick = "userMealPref(this)">
+                  <label>main</label>
+                </td>
+                <td>
+                  <input id="dietlowFODMAP" class="w3-radio" type="radio" name="dietary" value="lowFODMAP" onclick = "userDietaryPref(this)">
+                  <label>low FODMAP</label></td>
+                <td>
+                  <input id="intolGrain" class="w3-check" type="checkbox" name="intolerances" value="grain" onclick = "userIntolPref(this)">
+                  <label>grain</label></td>
+                </td>
+              </tr>
+              <tr>
+                <td>   
+                  <input id="mealDessert" class="w3-radio" type="radio" name="mealType" value="dessert" onclick = "userMealPref(this)">
+                  <label>dessert</label>
+                </td>
+                <td>
+                  <input id="dietOvo" class="w3-radio" type="radio" name="dietary" value="ovoVegetarian" onclick = "userDietaryPref(this)">
+                  <label>ovo-vegetarian</label></td>
+                <td>
+                  <input id="intolPeanut" class="w3-check" type="checkbox" name="intolerances" value="peanut" onclick = "userIntolPref(this)">
+                  <label>peanut</label></td>
+                </td>
+              </tr>
+              <tr>
+                <td>   
+                  <input id="mealSalad" class="w3-radio" type="radio" name="mealType" value="salad" onclick = "userMealPref(this)">
+                  <label>salad</label>
+                </td>
+                <td>
+                  <input id="dietPaleo" class="w3-radio" type="radio" name="dietary" value="Paleo" onclick = "userDietaryPref(this)">
+                  <label>paleo</label></td>
+                <td>
+                  <input id="intolSeafood" class="w3-check" type="checkbox" name="intolerances" value="seafood" onclick = "userIntolPref(this)">
+                  <label>seafood</label></td>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <input id="mealAll" class="w3-radio" type="radio" name="mealType" value="allMeals" onclick = "userMealPref(this)">
+                  <label>all meals</label>
+                </td>
+                <td>
+                  <input id="dietPescatarian" class="w3-radio" type="radio" name="dietary" value="Pescatarian" onclick = "userDietaryPref(this)">
+                  <label>pescatarian</label></td>
+                <td>
+                  <input id="intolSesame" class="w3-check" type="checkbox" name="intolerances" value="sesame" onclick = "userIntolPref(this)">
+                  <label>sesame</label></td>
+                </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>
+                  <input id="dietPrimal" class="w3-radio" type="radio" name="dietary" value="Primal" onclick = "userDietaryPref(this)">
+                  <label>primal</label></td>
+                <td>
+                  <input id="intolShellfish" class="w3-check" type="checkbox" name="intolerances" value="shellfish" onclick = "userIntolPref(this)">
+                  <label>shellfish</label></td>
+                </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>
+                  <input id="dietVegan" class="w3-radio" type="radio" name="dietary" value="vegan" onclick = "userDietaryPref(this)">
+                  <label>vegan</label></td>
+                <td>
+                  <input id="intolSoy"class="w3-check" type="checkbox" name="intolerances" value="soy" onclick = "userIntolPref(this)">
+                  <label>soy</label></td>
+                </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>
+                  <input id="dietVegetarian" class="w3-radio" type="radio" name="dietary" value="vegetarian" onclick = "userDietaryPref(this)">
+                  <label>vegetarian</label></td>
+                <td>
+                  <input id="intolSulfite" class="w3-check" type="checkbox" name="intolerances" value="sulfite" onclick = "userIntolPref(this)">
+                  <label>sulfite</label></td>
+                </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>
+                  <input id="dietWhole30" class="w3-radio" type="radio" name="dietary" value="whole30" onclick = "userDietaryPref(this)">
+                  <label>whole30</label></td>
+                <td>
+                  <input id="intolTreeNuts" class="w3-check" type="checkbox" name="intolerances" value="treeNuts" onclick = "userIntolPref(this)">
+                  <label>tree nuts</label></td>
+                </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>
+                  <input id="dietNoDietary" class="w3-radio" type="radio" name="dietary" value="noDietary" onclick = "userDietaryPref(this)">
+                  <label>none</label></td>
+                <td>
+                  <input id="intolWheat" class="w3-check" type="checkbox" name="intolerances" value="wheat" onclick = "userIntolPref(this)">
+                  <label>wheat</label></td>
+                </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><td>
+                  <input id="intolNone" class="w3-check" type="checkbox" name="intolerances" value="noIntolerance" onclick = "userIntolPref(this)">
+                  <label>none</label></td>
+                </td>
+              </tr>
+              </table>
           </div>
         </div>
-    
-        <!-- == Footer ================================================================================= -->
-       
-        <footer class = "container theme-dark-mod margin-top bottom"  style  = "margin-left:0; position:sticky"  >
-          <div style  = "float:right;" class  = "tooltip right margin-top-8"  >
-            <span class = "text small theme-light padding margin-bottom-sml"  > 
-              Take me to the top. 
-            </span>    
-            <a class  = "text-white" href  = "#myHeader">
-              <span class = "xlarge">
-                <i class  = "icon-circle-up"></i>
-              </span>
-            </a>
-          </div>
-          <span class = "small margin-top-24" style="position:absolute">  
-            © Copyright 2021 | All rights reversed.
-          </span>
-        </footer>
-    
-        <script src = "./js/jQuery/jQuery3.6.0.js"  >  </script>
-        <script src = "./js/main.js"  >  </script>
-      </body>
-    </html>
-    
-     <!-- ============================================================================================== -->
+      </div>
+
+      <div class="w3-container">
+        <div class="meal-result w3-margin w3-hide">
+          <h3 class="title">What I've found for you today:</h3>
+          <div id="meal" style="width: 100%; display: flex; flex-direction: row; flex-wrap: wrap;"></div>
+        </div>
+
+        <div class="meal-details">
+          <button
+            type="button"
+            class="btn recipe-close-btn"
+            id="recipe-close-btn"
+          >
+            <i class="icon-cross"></i>
+          </button>
+
+          <div class="recipe-content"></div>
+        </div>
+      </div>
+
+      
+<!-- ============================================================================================== -->
+
+    <script src="./js/jQuery/jQuery3.6.0.js"></script>
+    <script src="./js/main.js"></script>
+  </body>
+</html>
+
+<!-- ============================================================================================== -->
