@@ -90,7 +90,7 @@ function createDefaultUserPref (){
   document.getElementById( "mealAll" ).checked           = true;
   userPref[1] = "dietNoDietary";
   document.getElementById( "dietNoDietary" ).checked     = true;
-  userPref[2][12] = "intolNone-true";
+  userPref[2] = ["","","","","","","","","","","","","intolNone-true"];
   document.getElementById( "intolNone" ).checked         = true;
   
   localStorage.setItem("preferences", JSON.stringify(userPref)); 
@@ -104,7 +104,8 @@ function getTodaysRecipe(ingredientProvided) {
   let mealType = "";
   let intolerances = "";
   let diet = "";
-  let apiURL = `https://api.spoonacular.com/recipes/complexSearch?query=${ingredientProvided}&type=${mealType}&intolerances=${intolerances}&diet=${diet}&apiKey=${spoonacularAPI}`;
+  let apiURL = `https://api.spoonacular.com/recipes/complexSearch?query=${ingredientProvided}
+  &number=100&type=${mealType}&intolerances=${intolerances}&diet=${diet}&apiKey=${spoonacularAPI}`;
 
   fetch(apiURL).then(function (response) {
     if (response.ok) {
