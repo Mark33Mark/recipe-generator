@@ -18,6 +18,9 @@ const mealResults = document.querySelector(".meal-result");
 const mealList = document.getElementById("meal");
 const aQuote = document.getElementById("quote-me");
 const recipeCloseBtn = document.getElementById("recipe-close-btn");
+const slider = document.getElementById("recipeRange");
+const output = document.getElementById("recipeCount");
+const modalFilter = document.getElementById("userPref");
 
 let storedPreferences = JSON.parse(localStorage.getItem("preferences"));
 
@@ -40,10 +43,34 @@ function openModal(event) {
   document.getElementById("userPref").style.display = "block";
 }
 
+
 function userPrefModalClosed() {
   mealResults.style.display = "none";
   document.getElementById("userPref").style.display = "none";
   getTodaysRecipe(keyIngredient);
+}
+
+
+output.innerHTML = slider.value; // Display the default slider value
+
+slider.value = userPref[3];
+
+// Update the current slider value (each time you drag the slider handle)
+slider.oninput = function() {
+  output.innerHTML =  this.value;
+  recipeNumber = this.value;
+
+  userPref[3] = recipeNumber;
+  localStorage.setItem("preferences", JSON.stringify(userPref));
+}
+
+// allows you to close modal by clicking off to side of modal window,
+// alternative to using the close button.
+window.onclick = function( event ) {
+  if (event.target === modalFilter) {
+    modalFilter.style.display = "none";
+    userPrefModalClosed( );
+  }
 }
 
 /* =========================================================================================== */ 
@@ -96,10 +123,10 @@ function createDefaultUserPref (){
   document.getElementById( "dietNoDietary" ).checked     = true;
   userPref[2] = ["","","","","","","","","","","","","intolNone-true"];
   document.getElementById( "intolNone" ).checked         = true;
+  userPref[3] = 50;
   
   localStorage.setItem("preferences", JSON.stringify(userPref)); 
 }
-
 
 /* == Fetch data ================================================================================= */
 
@@ -145,7 +172,7 @@ function getTodaysRecipe(ingredientProvided) {
   
   console.log("user intolerance pref passed into URL = " + intolerances);
 
-  if (recipeNumber===null){ recipeNumber = 50;}
+  if (recipeNumber===null || recipeNumber === undefined ){ recipeNumber = 50;}
 
   console.log("recipes to find = " + recipeNumber)
 
@@ -199,18 +226,6 @@ function quoteGenerator(){
     }
   })
 }, 8000);
-};
-
-/* =========================================================================================== */
-
-const slider = document.getElementById("recipeRange");
-const output = document.getElementById("recipeCount");
-output.innerHTML = slider.value; // Display the default slider value
-
-// Update the current slider value (each time you drag the slider handle)
-slider.oninput = function() {
-  output.innerHTML =  this.value;
-  recipeNumber = this.value;
 }
 
 /* =========================================================================================== */
