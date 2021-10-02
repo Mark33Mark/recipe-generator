@@ -37,9 +37,8 @@
 
       <header class="w3-container" id="myHeader">
         <div class="w3-center">
-          <h1 class="w3-xxxlarge w3-animate-zoom" id="app-name">
-            Recipe Generator
-          </h1>
+          <h1 class="w3-xxxlarge w3-animate-zoom" id="app-name">Recipe Generator</h1>
+          <div id="quote-me" class="w3-medium w3-animate-right"></div>
         </div>
       </header>
 
@@ -66,7 +65,16 @@
           <header class="w3-container w3-teal"> 
             <span onclick="userPrefModalClosed( )" class="w3-button w3-display-topright">&times;
             </span>
-            <h2>Recipe Filter</h2>
+            <h2>Recipe Filter
+
+              <span class="w3-right">
+                <div class="slideContainer" style="margin-right: 3rem;">
+                  <input type="range" min="1" max="100" value="50" class="slider" id="recipeRange">
+                  <p class="w3-medium">maximum recipes to try for: &nbsp; &nbsp;<span id="recipeCount"></span></p>
+                </div>
+              </span>
+
+            </h2>
           </header>
           <div class="w3-container">
             <table class="w3-table">

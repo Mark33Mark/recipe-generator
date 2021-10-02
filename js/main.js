@@ -16,14 +16,21 @@ const searchForm = document.querySelector("#search-form");
 const recipeContent = document.querySelector(".recipe-content");
 const mealResults = document.querySelector(".meal-result");
 const mealList = document.getElementById("meal");
+const aQuote = document.getElementById("quote-me");
 const recipeCloseBtn = document.getElementById("recipe-close-btn");
+const slider = document.getElementById("recipeRange");
+const output = document.getElementById("recipeCount");
+const modalFilter = document.getElementById("userPref");
 
 let storedPreferences = JSON.parse(localStorage.getItem("preferences"));
 
 let ingredient = [];
 let userPref = [];
 let userPrefIntol = [];
-let ingredients, keyIngredient;
+let ingredients, keyIngredient, recipeNumber;
+
+quoteGenerator();
+
 
 /* ============================================================================================= */
 
@@ -36,13 +43,37 @@ function openModal(event) {
   document.getElementById("userPref").style.display = "block";
 }
 
+
 function userPrefModalClosed() {
+  mealResults.style.display = "none";
   document.getElementById("userPref").style.display = "none";
   getTodaysRecipe(keyIngredient);
 }
 
 
-/* ====================================================================================== */ 
+output.innerHTML = slider.value; // Display the default slider value
+
+slider.value = userPref[3];
+
+// Update the current slider value (each time you drag the slider handle)
+slider.oninput = function() {
+  output.innerHTML =  this.value;
+  recipeNumber = this.value;
+
+  userPref[3] = recipeNumber;
+  localStorage.setItem("preferences", JSON.stringify(userPref));
+}
+
+// allows you to close modal by clicking off to side of modal window,
+// alternative to using the close button.
+window.onclick = function( event ) {
+  if (event.target === modalFilter) {
+    modalFilter.style.display = "none";
+    userPrefModalClosed( );
+  }
+}
+
+/* =========================================================================================== */ 
 
 function storedPrefs (){
 
@@ -66,7 +97,7 @@ function storedPrefs (){
     if( userPref[2]!== null ){ 
       userPref[2].forEach(function populateIntol(intol, index){
         
-        let userID = intol.split('-')[0];
+        let userID = intol.split('-')[0];  // extract 1st part of string - the ID name.
 
         if ( intol.split('-').pop() === "true" ){
 
@@ -92,20 +123,61 @@ function createDefaultUserPref (){
   document.getElementById( "dietNoDietary" ).checked     = true;
   userPref[2] = ["","","","","","","","","","","","","intolNone-true"];
   document.getElementById( "intolNone" ).checked         = true;
+  userPref[3] = 50;
   
   localStorage.setItem("preferences", JSON.stringify(userPref)); 
 }
 
-/* ====================================================================================== */ 
-
 /* == Fetch data ================================================================================= */
 
 function getTodaysRecipe(ingredientProvided) {
-  let mealType = "";
-  let intolerances = "";
-  let diet = "";
+  let mealType, intolerances, diet;
+  
+  if (userPref[0] === null){ 
+    mealType = "";
+  } if (userPref[0] === "mealALL"){
+    mealType = "";
+  } else {
+    mealType = userPref[0];
+    mealType = mealType.slice(4,mealType.length);  //remove 'meal' from string.
+    mealType = mealType.toLowerCase();
+    console.log("user preference passed into URL = " + mealType)
+  }
+  
+  if (userPref[1] === null){ 
+    mealType = "";
+  } if (userPref[1] === "dietNoDietary"){
+    mealType = "";
+  } else {
+    diet = userPref[1];
+    diet = diet.slice(4,diet.length)
+    diet = diet.toLowerCase();
+    console.log("user diet pref passed into URL = " + diet)
+  }
+
+  if( userPref[2]!== null ){ 
+    intolerances="";
+    userPref[2].forEach(function selectedIntol(intol){  
+      if ((intol !=="")&&(intol.split('-').pop() === "true")){
+
+        let intolType = intol.split('-')[0] + ",";
+        intolType = intolType.slice(5, intolType.length);
+        intolType = intolType.toLowerCase();
+        
+        intolerances += intolType;
+        }
+      })
+      intolerances = intolerances.slice(0, intolerances.length-1) // remove last comma.
+  } 
+  
+  console.log("user intolerance pref passed into URL = " + intolerances);
+
+  if (recipeNumber===null || recipeNumber === undefined ){ recipeNumber = 50;}
+
+  console.log("recipes to find = " + recipeNumber)
+
   let apiURL = `https://api.spoonacular.com/recipes/complexSearch?query=${ingredientProvided}
-  &number=100&type=${mealType}&intolerances=${intolerances}&diet=${diet}&apiKey=${spoonacularAPI}`;
+  &number=${recipeNumber}&type=${mealType}&intolerances=${intolerances}&diet=${diet}&apiKey=${spoonacularAPI}`;
 
   fetch(apiURL).then(function (response) {
     if (response.ok) {
@@ -115,11 +187,22 @@ function getTodaysRecipe(ingredientProvided) {
         .then(function (data) {
           console.log(data);
           listMe(data);
+
+          if (data.results.length === 0) {
+      
+            console.log("nothing found");
+
+            mealResults.style.display = "block";
+            let html = "";
+            html = "Sorry, I couldn't find a meal for you.<br />Please try again";
+            mealList.classList.add("notFound");
+            mealList.innerHTML = html;
+          }
         });
       console.log("ingredientProvided = " + ingredientProvided);
     } else {
       let html = "";
-      html = "Sorry, we didn't find any meal!";
+      html = "There's a problem with your search, please try again.";
       mealList.classList.add("notFound");
       mealList.innerHTML = html;
     }
@@ -128,9 +211,27 @@ function getTodaysRecipe(ingredientProvided) {
 
 /* =========================================================================================== */
 
+function quoteGenerator(){
+
+  setInterval(function quoteMe(){
+    fetch("https://uselessfacts.jsph.pl/random.json?language=en")
+  .then(response => {
+  if (response.ok) {
+    response
+      .json()
+
+      .then(function (data) {
+        aQuote.innerText = `" ${data.text} "`;
+      });
+    }
+  })
+}, 8000);
+}
+
+/* =========================================================================================== */
+
 function listMe(recipes) {
   let html = "";
-
   recipes.results.forEach(function (result) {
     console.log(result);
 
