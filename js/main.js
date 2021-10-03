@@ -9,6 +9,7 @@
  * =========================================================================================== */
 
 const spoonacularAPI = "3f02a89ca80e407492794df034986041";
+// const spoonacularAPI = "919b3550399d4761aced47f4afec99ca"
 
 const userIngredient = document.querySelector("#recipeIngredient");
 const recipesFound = document.querySelector("#theRecipes");
@@ -21,16 +22,16 @@ const recipeCloseBtn = document.getElementById("recipe-close-btn");
 const slider = document.getElementById("recipeRange");
 const output = document.getElementById("recipeCount");
 const modalFilter = document.getElementById("userPref");
+const ingredientList = document.getElementById("ingredients");
 
 let storedPreferences = JSON.parse(localStorage.getItem("preferences"));
 
 let ingredient = [];
 let userPref = [];
 let userPrefIntol = [];
-let ingredients, keyIngredient, recipeNumber;
+let ingredients, keyIngredient, recipeNumber, selectRecipe;
 
 quoteGenerator();
-
 
 /* ============================================================================================= */
 
@@ -168,21 +169,22 @@ function getTodaysRecipe(ingredientProvided) {
         }
       })
       intolerances = intolerances.slice(0, intolerances.length-1) // remove last comma.
-  } 
+  }
   
   console.log("user intolerance pref passed into URL = " + intolerances);
 
   if (recipeNumber===null || recipeNumber === undefined ){ recipeNumber = 50;}
+  
+  console.log("recipes to find = " + recipeNumber);
 
-  console.log("recipes to find = " + recipeNumber)
 
   let apiURL = `https://api.spoonacular.com/recipes/complexSearch?query=${ingredientProvided}
   &number=${recipeNumber}&type=${mealType}&intolerances=${intolerances}&diet=${diet}&apiKey=${spoonacularAPI}`;
 
-  fetch(apiURL).then(function (response) {
-    if (response.ok) {
-      response
-        .json()
+  fetch(apiURL)
+    .then(function (response) {
+      if (response.ok) {
+      response.json()
 
         .then(function (data) {
           console.log(data);
@@ -213,7 +215,23 @@ function getTodaysRecipe(ingredientProvided) {
 
 function quoteGenerator(){
 
-  setInterval(function quoteMe(){
+// Running this once to avoid delay from the setInterval for the 1st run.
+// User should see a quote as quickly as possible from opening the page.
+
+fetch("https://uselessfacts.jsph.pl/random.json?language=en")  
+  .then(response => {
+  if (response.ok) {
+    response
+      .json()
+
+      .then(function (data) {
+        let html = `<blockquote class="w3-animate-fading">${data.text}</blockquote>`;
+        aQuote.innerHTML = html;
+      });
+    }
+  });
+
+  setInterval(function (){
     fetch("https://uselessfacts.jsph.pl/random.json?language=en")
   .then(response => {
   if (response.ok) {
@@ -221,7 +239,8 @@ function quoteGenerator(){
       .json()
 
       .then(function (data) {
-        aQuote.innerText = `" ${data.text} "`;
+        let html = `<blockquote class="w3-animate-fading">${data.text}</blockquote>`;
+        aQuote.innerHTML = html;
       });
     }
   })
@@ -273,21 +292,78 @@ function getMealRecipe(event) {
 function mealRecipeModal(meal) {
   console.log(meal);
 
+  // passing to global variable to build the ingredients list in a separate function.
+  selectRecipe = meal;  
+
   let html = `
-      <h2 class = "recipe-title">${meal.title}</h2>
+      <h2 class = "recipe-title">${selectRecipe.title.toUpperCase()}</h2>
       <div class = "recipe-summary">
           <h3>Recipe idea:</h3>
-          <p>${meal.summary}</p>
+          <h4>Cuisines: ${selectRecipe.cuisines} </h4>
+          <p>${selectRecipe.summary}</p>
       </div>
-      <div class = "recipe-instruct">
-          <h3>Instructions:</h3>
-          <p>${meal.instructions}</p>
-      </div>
-      <div class = "recipe-meal-img">
-          <img src = "${meal.image}" alt = "">
+      <button id="ingredients" 
+              class="w3-button w3-white w3-border w3-border-blue w3-round-large w3-margin-top w3-margin-bottom"
+              onclick = "ingredientsWindow()">
+        Ingredients
+      </button>
+
+      <div id="toggleIngredients">
+        <div class = "recipe-ingredients" style="display:none"></div>
+        <div class = "recipe-instruct" style="display:block">
+            <h3>Instructions:</h3>
+            <p>${selectRecipe.instructions}</p>
+        </div>
+        <div class = "recipe-meal-img">
+            <img src = "${selectRecipe.image}" alt = "">
+        </div>
       </div> `;
   recipeContent.innerHTML = html;
-  recipeContent.parentElement.classList.add("showRecipe");
+  recipeContent.parentElement.classList.add("showRecipe");  
+}
+
+/* == Ingredients window ======================================================================== */
+
+function ingredientsWindow(){
+
+  let ingredientsToggle = document.getElementById("toggleIngredients");
+
+  if (ingredientsToggle.children[0].style.display === "none") {
+    
+    ingredientsToggle.children[2].style.display = "none";
+    ingredientsToggle.children[1].style.display = "none";
+    ingredientsToggle.children[0].style.display = "block";
+    ingredientsToggle.style.backgroundColor = "white";
+    document.getElementById("ingredients").innerHTML="Instructions";
+    
+    let html = "";
+    for (let i = 0; i < selectRecipe.extendedIngredients.length; i++){
+      if(selectRecipe.extendedIngredients[i].image===null){
+        html += `
+        <div class = "w3-padding">
+            <img src="./img/noImagePlaceholder.jpg" />
+            <span>${selectRecipe.extendedIngredients[i].originalString}</span>
+        </div>`;
+        ingredientsToggle.children[0].innerHTML = html;
+      } else {
+        html += `
+            <div class = "w3-padding">
+                <img src="https://spoonacular.com/cdn/ingredients_100x100/${selectRecipe.extendedIngredients[i].image}" />
+                <span>${selectRecipe.extendedIngredients[i].originalString}</span>
+            </div>`;
+        ingredientsToggle.children[0].innerHTML = html;
+      }
+    }
+    
+  } else {
+
+    ingredientsToggle.children[2].style.display = "block";
+    ingredientsToggle.children[1].style.display = "block";
+    ingredientsToggle.style.backgroundColor = "rgba(191, 191, 189, 1)";
+    ingredientsToggle.children[0].style.display = "none";
+    document.getElementById("ingredients").innerHTML="Ingredients";
+
+  }
 }
 
 /* == Events ==================================================================================== */
@@ -300,7 +376,7 @@ recipeCloseBtn.addEventListener("click", () => {
   recipeContent.parentElement.classList.remove("showRecipe");
 });
 
-/* == User Preference Events ============================================================ */
+/* == User Preferences Events ============================================================== */
 
 function userMealPref(clicked_object) {
   userPref[0] = clicked_object.id;
@@ -320,17 +396,29 @@ function userIntolPref(clicked_object) {
   // userPref[2] = clicked_object.id;
 
   let userIntolerances = document.getElementsByName("intolerances");
+  
+  
   userPrefIntol.splice(0,13);
   userPref[2] = userPrefIntol;  
   localStorage.setItem("preferences", JSON.stringify(userPref));
 
+  console.log(userIntolerances[12].checked);
+
+  // worked out a way to stop users having 'none' checked with other 
+  // intolerances.  Works ok although users can uncheck none and 
+  // parse all unchecked / empty into the URL.  Not perfect solution.
+  if(userIntolerances[12].checked){
+    for (let i=0; i<=11; i++){
+      userIntolerances[i].checked = false; 
+    }    
+  } 
   userIntolerances.forEach( function recordIntolerances(intol, index){
-    userPrefIntol.push(intol.id +"-"+ intol.checked, );
+    userPrefIntol.push( intol.id +"-"+ intol.checked );
   })
 
   userPref[2] = userPrefIntol;  
   localStorage.setItem("preferences", JSON.stringify(userPref));
-  delete userPrefIntol;
+  delete userPrefIntol;  // clearing array when user next opens filter window.
 }
 
 /* ============================================================================================ 

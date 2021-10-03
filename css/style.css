@@ -168,6 +168,7 @@
 }
 
 .meal-details{
+  z-index: 3;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -176,15 +177,15 @@
   -moz-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
   -o-transform: translate(-50%, -50%);
-  color: #fff;
-  background: var(--ocean-blue);
+  color: rgb(50, 50, 50);
+  background: var(--sand-dark);
   border-radius: 1rem;
   -webkit-border-radius: 1rem;
   -moz-border-radius: 1rem;
   -ms-border-radius: 1rem;
   -o-border-radius: 1rem;
-  width: 90%;
-  height: 90%;
+  width: 80%;
+  height: 80%;
   overflow-y: scroll;
   display: none;
   padding: 2rem 2rem;
