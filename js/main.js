@@ -341,15 +341,23 @@ function ingredientsWindow(){
       if(selectRecipe.extendedIngredients[i].image===null){
         html += `
         <div class = "w3-padding">
-            <img src="./img/noImagePlaceholder.jpg" />
-            <span>${selectRecipe.extendedIngredients[i].originalString}</span>
+        <table class="w3-table-all">
+          <tr>
+            <td style = "width:6.5rem;"><img src="./img/noImagePlaceholder.jpg" /></td>
+            <td style = "vertical-align:middle;"><div class="w3-left-align">${selectRecipe.extendedIngredients[i].originalString}</div></td>
+          </tr>
+        </table>
         </div>`;
         ingredientsToggle.children[0].innerHTML = html;
       } else {
         html += `
             <div class = "w3-padding">
-                <img src="https://spoonacular.com/cdn/ingredients_100x100/${selectRecipe.extendedIngredients[i].image}" />
-                <span>${selectRecipe.extendedIngredients[i].originalString}</span>
+              <table class="w3-table-all">
+                <tr>
+                  <td style = "width:6.5rem;"><img src="https://spoonacular.com/cdn/ingredients_100x100/${selectRecipe.extendedIngredients[i].image}" width = "100px" /></td>
+                  <td style = "vertical-align:middle;"><div class="w3-left-align">${selectRecipe.extendedIngredients[i].originalString}</div></td>
+                </tr>
+              </table>
             </div>`;
         ingredientsToggle.children[0].innerHTML = html;
       }
