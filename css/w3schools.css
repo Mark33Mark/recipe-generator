@@ -1,8 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;500&display=swap');
+
 /* W3.CSS 4.15 December 2020 by Jan Egil and Borge Refsnes */
 
 html {
   box-sizing: border-box;
 }
+
 *,
 *:before,
 *:after {
@@ -13,7 +17,9 @@ html {
 html {
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
+
 }
+
 body {
   margin: 0;
 }
@@ -72,7 +78,7 @@ abbr[title] {
 
 b,
 strong {
-  font-weight: bolder;
+  font-weight: bold;
 }
 dfn {
   font-style: italic;
@@ -206,12 +212,13 @@ textarea {
 /* End extract */
 html,
 body {
-  font-family: Verdana, sans-serif;
+  font-family: 'Roboto', Verdana, sans-serif;
   font-size: 15px;
   line-height: 1.5;
 }
 html {
   overflow-x: hidden;
+  background-color: rgb(244, 223, 194);
 }
 
 h1 {
@@ -233,37 +240,30 @@ h6 {
   font-size: 16px;
 }
 
-.w3-serif {
-  font-family: serif;
-}
-.w3-sans-serif {
-  font-family: sans-serif;
-}
-.w3-cursive {
-  font-family: cursive;
-}
-.w3-monospace {
-  font-family: monospace;
-}
-
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-  font-family: "Segoe UI", Arial, sans-serif;
-  font-weight: 400;
+  font-family: "Roboto", Arial, sans-serif;
   margin: 10px 0;
 }
+
+h1 {
+  font-weight: lighter;
+}
+
 .w3-wide {
   letter-spacing: 4px;
 }
 
 hr {
   border: 0;
-  border-top: 1px solid #eee;
+  border-top: 1px solid rgb(116, 86, 48);
   margin: 20px 0;
+  max-width: 320px;
+  margin: auto;
 }
 
 .w3-image {
@@ -277,6 +277,7 @@ a {
   color: inherit;
 }
 
+
 .w3-table,
 .w3-table-all {
   border-collapse: collapse;
@@ -284,9 +285,9 @@ a {
   width: 100%;
   display: table;
 }
-.w3-table-all {
+/* .w3-table-all {
   border: 1px solid #ccc;
-}
+} */
 
 .w3-bordered tr,
 .w3-table-all tr {
@@ -331,9 +332,9 @@ a {
 
 .w3-btn,
 .w3-button {
-  border: none;
+  border: cornsilk 1px solid;
   display: inline-block;
-  padding: 8px 16px;
+  padding: 12px 10px;
   vertical-align: middle;
   overflow: hidden;
   text-decoration: none;
@@ -422,15 +423,16 @@ a {
   padding: 8px;
   display: block;
   border: none;
-  border-bottom: 1px solid #ccc;
+  border: 1px solid #fff;
   width: 100%;
+  font-weight: 300;
 }
 
 .w3-select {
   padding: 9px 0;
   width: 100%;
   border: none;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid rgb(204, 204, 204);
 }
 
 .w3-dropdown-click,
@@ -522,11 +524,15 @@ a {
 
 .w3-modal-content {
   margin: auto;
-  background-color: #fff;
+  background-color: transparent;
   position: relative;
   padding: 0;
   outline: 0;
   width: 600px;
+}
+
+.w3-modal-content::after{
+      background-color: white;
 }
 
 .w3-bar {
@@ -901,8 +907,11 @@ a {
 }
 .w3-display-topright {
   position: absolute;
-  right: 0;
-  top: 0;
+    right: 0;
+    top: 9px;
+    margin: 9px;
+    max-width: 150px;
+    font-size: 15px;
 }
 
 .w3-display-bottomleft {
@@ -1039,7 +1048,8 @@ a {
 
 .w3-card-4,
 .w3-hover-shadow:hover {
-  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2), 0 4px 20px 0 rgba(0, 0, 0, 0.19);
+  box-shadow: 0 4px 3px 0 rgba(0, 0, 0, 0.2), 0 4px 20px 0 rgba(0, 0, 0, 0.19);
+  background-color: white;
 }
 
 .w3-spin {
@@ -1208,6 +1218,7 @@ a {
 }
 .w3-small {
   font-size: 12px !important;
+  margin: 0px;
 }
 .w3-medium {
   font-size: 15px !important;
@@ -1226,11 +1237,14 @@ a {
   font-size: 48px !important;
 }
 .w3-jumbo {
-  font-size: 64px !important;
+  font-size: 60px !important;
+  color: #795548;
+  margin-top: 250px;
 }
 
 .w3-left-align {
   text-align: left !important;
+  color: var(--chocolate);
 }
 .w3-right-align {
   text-align: right !important;
@@ -1350,10 +1364,13 @@ a {
 
 .w3-left {
   float: left !important;
+  color: #000;
 }
 
 .w3-right {
   float: right !important;
+    margin-left: 195px;
+    text-align: center;
 }
 
 .w3-button:hover {
@@ -1487,10 +1504,12 @@ a {
   background-color: #fdf5e6 !important;
 }
 
-.w3-teal,
-.w3-hover-teal:hover {
+.w3-tan,
+.w3-hover-tan:hover {
   color: #fff !important;
-  background-color: #009688 !important;
+  background-color: #c59565 !important;
+  display: flex;
+    flex-direction: row;
 }
 
 .w3-yellow,
@@ -1709,7 +1728,7 @@ a {
 
 .w3-border-blue,
 .w3-hover-border-blue:hover {
-  border-color: #2196f3 !important;
+  border-color: #795548 !important;
 }
 
 .w3-border-light-blue,

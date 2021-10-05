@@ -31,20 +31,16 @@
 
     <link rel="icon" href="img/favicon.ico?ver=1.0" type="image/x-icon" />
   </head>
-
   <!-- ============================================================================================= -->
-
   <body>
-
       <header class="w3-container" id="myHeader">
         <div class="w3-center">
-          <h1 class="w3-xxxlarge w3-animate-zoom" id="app-name">Recipe Generator</h1>
-          <div id="quote-me" class="w3-medium"></div>
+
+          <h1 class="w3-jumbo w3-animate-zoom" id="app-name">Recipe Generator</h1>
+          <hr>
         </div>
       </header>
-
       <!-- == Search Bar =========================================================================== -->
-
       <div class="w3-container w3-modal-content search-bar" style="max-width: 50rem; max-height:10rem; margin-top:3rem;">
         <form id="search-form" class="form-wrapper">
           <div class="w3-section w3-left-align">
@@ -52,7 +48,7 @@
               id="recipeIngredient"
               class="w3-input w3-large"
               type="text"
-              placeholder="ingredient please "
+              placeholder="Choose your ingredient"
             />
             <button id="submitButton">
               <i class="icon-search"></i>
@@ -60,18 +56,16 @@
           </div>
         </form>
       </div>
-
       <div id="userPref" class="w3-modal">
         <div class="w3-modal-content w3-card-4">
-          <header class="w3-container w3-teal"> 
-            <span onclick="userPrefModalClosed( )" class="w3-button w3-display-topright">&times;
-            </span>
+          <header class="w3-container w3-tan"> 
             <h2>Recipe Filter
-
+            <span onclick="userPrefModalClosed( )" class="w3-button w3-display-topright">View Recipes
+            </span>
               <span class="w3-right">
                 <div class="slideContainer" style="margin-right: 3rem;">
                   <input type="range" min="1" max="100" value="50" class="slider" id="recipeRange">
-                  <p class="w3-medium">maximum recipes to try for: &nbsp; &nbsp;<span id="recipeCount"></span></p>
+                  <p class="w3-small">Maximum recipes to try for:&nbsp;<span id="recipeCount"></span></p>
                 </div>
               </span>
 
@@ -239,8 +233,8 @@
 
       <div class="w3-container">
         <div class="meal-result w3-margin w3-hide">
-          <h3 class="title">What I've found for you today:</h3>
-          <div id="meal" style="width: 100%; display: flex; flex-direction: row; flex-wrap: wrap;"></div>
+          <h3 id="title-results" class="title-results title-results--show">Recipes we have found for you</h3>
+          <div id="meal" style="width: 100%; display: flex; flex-direction: row; flex-wrap: wrap; border-radius: 5%;"></div>
         </div>
 
         <div class="meal-details">
