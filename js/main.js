@@ -8,8 +8,9 @@
  *                                                                                             *
  * =========================================================================================== */
 
-// const spoonacularAPI = "3f02a89ca80e407492794df034986041";
-const spoonacularAPI = "919b3550399d4761aced47f4afec99ca"
+// const spoonacularAPI = "3f02a89ca80e407492794df034986041"; // mark@watsonised.com
+const spoonacularAPI = "0f8b03de54ab4bab815f3490682e4182";  // mark.watsonised@gmail.com
+// const spoonacularAPI = "919b3550399d4761aced47f4afec99ca"
 
 
 const userIngredient = document.querySelector("#recipeIngredient");
@@ -310,8 +311,15 @@ function mealRecipeModal(meal) {
         Ingredients
       </button>
 
+      <button id="saveToTextFile" 
+        class="w3-button w3-white w3-border w3-border-blue w3-round-large w3-margin-top w3-margin-bottom"
+        onclick = "saveIngredientsToTextFile()" style="display:none;">
+        Copy to Text File
+      </button>
+
       <div id="toggleIngredients">
         <div class = "recipe-ingredients" style="display:none"></div>
+
         <div class = "recipe-instruct" style="display:block">
             <h3>Instructions:</h3>
             <p>${selectRecipe.instructions}</p>
@@ -335,6 +343,7 @@ function ingredientsWindow(){
     ingredientsToggle.children[2].style.display = "none";
     ingredientsToggle.children[1].style.display = "none";
     ingredientsToggle.children[0].style.display = "block";
+    document.getElementById("saveToTextFile").style.display = "inline-block";
     ingredientsToggle.style.backgroundColor = "white";
     document.getElementById("ingredients").innerHTML="Instructions";
     
@@ -346,7 +355,7 @@ function ingredientsWindow(){
         <table class="w3-table-all">
           <tr>
             <td style = "width:6.5rem;"><img src="./img/noImagePlaceholder.jpg" /></td>
-            <td style = "vertical-align:middle;"><div class="w3-left-align">${selectRecipe.extendedIngredients[i].originalString}</div></td>
+            <td style = "vertical-align:middle;"><div class="w3-left-align ingredient-list">${selectRecipe.extendedIngredients[i].originalString}</div></td>
           </tr>
         </table>
         </div>`;
@@ -357,23 +366,42 @@ function ingredientsWindow(){
               <table class="w3-table-all">
                 <tr>
                   <td style = "width:6.5rem;"><img src="https://spoonacular.com/cdn/ingredients_100x100/${selectRecipe.extendedIngredients[i].image}" width = "100px" /></td>
-                  <td style = "vertical-align:middle;"><div class="w3-left-align">${selectRecipe.extendedIngredients[i].originalString}</div></td>
+                  <td style = "vertical-align:middle;"><div class="w3-left-align ingredient-list">${selectRecipe.extendedIngredients[i].originalString}</div></td>
                 </tr>
               </table>
             </div>`;
         ingredientsToggle.children[0].innerHTML = html;
       }
     }
-    
+   
   } else {
 
     ingredientsToggle.children[2].style.display = "block";
     ingredientsToggle.children[1].style.display = "block";
     ingredientsToggle.style.backgroundColor = "rgba(191, 191, 189, 1)";
+    document.getElementById("saveToTextFile").style.display = "none";
     ingredientsToggle.children[0].style.display = "none";
     document.getElementById("ingredients").innerHTML="Ingredients";
 
   }
+}
+
+/* ============================================================================================== */
+
+function saveIngredientsToTextFile() {
+
+  let ingredientItem = document.querySelectorAll(".ingredient-list");
+  let ingredientItems = [];
+
+  for (let i=0; i < ingredientItem.length; i++){
+  ingredientItems.push(ingredientItem[i].innerHTML)
+  }
+
+  let ingredientString = ingredientItems.toString();
+  text = ingredientString.split(",").join("\n");
+  let blob = new Blob([text], { type: "text/plain;charset=utf-8" });
+  saveAs(blob, `${selectRecipe.title}_ingredients.txt`);
+
 }
 
 /* == Events ==================================================================================== */
