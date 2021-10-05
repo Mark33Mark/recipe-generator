@@ -13,7 +13,11 @@
 
 /* == 1. Global settings =================================================================== */
 
-@import url("icomoon/iconfonts.css"); /* Includes fonts I've created in Inkscape */
+@import url("icomoon/iconfonts.css"); 
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;500&display=swap');
+
+/* Includes fonts I've created in Inkscape */
 
 :root {
 
@@ -27,7 +31,7 @@
   --artic-blue: rgba(15, 124, 191, 1);
   --light-blue: rgba(17, 160, 217, 1);
   --sky-blue:   rgba(78, 191, 217, 1);
-  --terracotta: rgba(191, 120, 94, 1);
+  --terracotta: rgb(197, 155, 140);
 
   --rocks-dark: rgba(127, 125, 140, 1);
   --ocean-dark: rgba(149, 179, 191, 1);
@@ -37,6 +41,14 @@
 }
 
 /* == Project Specific Settings ============================================================== */
+
+hr {
+  
+}
+
+#search-form {
+  background: white;
+}
 
 .form-wrapper button {
   overflow: visible;
@@ -49,10 +61,10 @@
   cursor: pointer;
   height: 2.7rem;
   width: 50px;
-  font: bold 15px/40px "lucida sans", "trebuchet MS", "Tahoma";
+  font: bold 15px/40px "Roboto", "sans-serif", "Tahoma";
   color: #fff;
   text-transform: uppercase;
-  background: var(--ocean-dark);
+  background: var(--chocolate);
   border-radius: 0 3px 3px 0;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
 }
@@ -73,7 +85,7 @@
   position: absolute;
   border-width: 8px 8px 8px 0;
   border-style: solid solid solid none;
-  border-color: transparent var(--ocean-dark) transparent;
+  border-color: transparent var(--chocolate) transparent;
   top: 12px;
   left: -6px;
 }
@@ -93,6 +105,7 @@
   padding: 0;
 }
 
+
 .recipe-generator {
   min-height: calc(100vh - 3rem);
   min-width: 100vw;
@@ -105,14 +118,86 @@
 /* =================================================================== */
 
 
+.slidecontainer {
+  width: 100%;
+}
+
+.slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 1rem;
+  background: cornsilk;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.slider:hover {
+  opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 1rem;
+  height: 1rem;
+  background: var(--chocolate);
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 1rem;
+  height: 1rem;
+  background:var(--chocolate);
+  cursor: pointer;
+}
+
+
+.title-results{
+  background:rgb(202, 146, 101);
+  border-radius: 5px;
+  display:none;
+  font-family:sans-serif;
+  font-size: 16px;
+  font-weight:300;
+  -webkit-box-pack:space-evenly;
+  -ms-flex-pack:space-evenly;
+  justify-content:space-evenly;
+  margin:1rem auto 1.5rem;
+  max-width:18rem;
+  padding:.75rem;
+  position:relative;
+  text-align:center}
+
+.title-results--show{
+  display:block
+}
+
+.title-results:after {
+  border:.5rem solid transparent;
+  border-bottom-color:rgb(202, 146, 101);
+  border-top:0;
+  content:'';
+  height:0;left:50%;
+  margin-left:-.5rem;
+  margin-top: 45px;
+  position:absolute;
+  top:0;width:0;
+  transform: rotate(179deg);
+}
+
 .meal-result{
   margin-top: 4rem;
+  background-color: transparent;
 
 }
 
-#meal{
+#meal {
   margin: 2.4rem 0;
   width: 65vw;
+    justify-content: center;
+    border-radius: 10px;
 }
 
 .meal-item{
@@ -129,6 +214,7 @@
 .meal-img img{
   width: 100%;
   display: block;
+  border-radius: 20px 20px 0px 0px;
 }
 
 .meal-name{
@@ -136,15 +222,17 @@
 }
 
 .meal-name h3{
-  font-size: 1.4rem;
+  font-family: 'Roboto', sans-serif;
+  font-size: 17px;
   text-align: center;
+  font-weight: 500;
 }
 
 .recipe-btn{
   text-decoration: none;
   text-align: center;
   color: #fff;
-  background: var(--ocean-blue);
+  background: rgb(203 146 101);
   font-weight: 500;
   font-size: 1.1rem;
   padding: 0.75rem 0;
@@ -164,7 +252,7 @@
 }
 
 .recipe-btn:hover{
-  background: var(--ocean-blue);
+  background: rgb(202, 146, 101);
 }
 
 .meal-details{
@@ -177,8 +265,8 @@
   -moz-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
   -o-transform: translate(-50%, -50%);
-  color: rgb(50, 50, 50);
-  background: var(--sand-dark);
+  color: #fff;
+  background: rgb(202, 146, 101);
   border-radius: 1rem;
   -webkit-border-radius: 1rem;
   -moz-border-radius: 1rem;
@@ -239,7 +327,14 @@
 .recipe-title{
   letter-spacing: 1px;
   padding-bottom: 1rem;
+  font-weight: 500;
 }
+
+p, .recipe-instruct {
+  font-weight: 300;
+}
+
+
 
 .recipe-category{
   background: #fff;

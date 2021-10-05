@@ -255,7 +255,7 @@ function listMe(recipes) {
     console.log(result);
 
     html += `
-        <div class = "w3-card-4 w3-margin w3-center recipe-card" style="flex: 0 1 30%; width:50%;" data-id = "${result.id}">
+        <div class = "w3-card-4 w3-margin w3-center recipe-card" style="flex: 0 1 30%; width:50%; border-radius: 20px;" data-id = "${result.id}">
             <div class = "meal-img">
                 <img src = "${result.image}" alt = "food">
             </div>
@@ -295,11 +295,15 @@ function mealRecipeModal(meal) {
   // passing to global variable to build the ingredients list in a separate function.
   selectRecipe = meal;  
 
+  let cuisinesSpaced = selectRecipe.cuisines.toString();
+  let cuisinesHyphen = cuisinesSpaced.split(",").join(" - ");
+
   let html = `
       <h2 class = "recipe-title">${selectRecipe.title.toUpperCase()}</h2>
       <div class = "recipe-summary">
           <h3>Recipe idea:</h3>
-          <h4>Cuisines: ${selectRecipe.cuisines} </h4>
+          <h4>Cuisines: ${cuisinesHyphen} </h4>
+
           <p>${selectRecipe.summary}</p>
       </div>
       <button id="ingredients" 
@@ -307,21 +311,26 @@ function mealRecipeModal(meal) {
               onclick = "ingredientsWindow()">
         Ingredients
       </button>
+      <button id="shopping-list" class="w3-button w3-white w3-border w3-border-yellow w3-round-large w3-margin-top w3-margin-bottom" 
+        onclick="copyIngredientsToText()" style="display:none">
+        Shopping List (text file)
+      </button>
 
       <div id="toggleIngredients">
         <div class = "recipe-ingredients" style="display:none"></div>
         <div style="background-color: rgba(191, 191, 189, 1); position: absolute;">
-          <button class="w3-button w3-green w3-margin-left w3-border w3-border-blue w3-round-large w3-margin-top w3-margin-bottom" 
-              onclick="copyIngredientsToText()" style="display:none">
-              Copy to Text File
-          </button>
+
         </div>
         <div class = "recipe-instruct" style="display:block">
             <h3>Instructions:</h3>
             <p>${selectRecipe.instructions}</p>
         </div>
         <div class = "recipe-meal-img">
-            <img src = "${selectRecipe.image}" alt = "">
+            <img src = "${selectRecipe.image}" alt = "" >
+        </div>
+        <div class = "w3-margin-top wine-pairing">
+          <h3>Wine pairing:</h3>
+          <p> ${selectRecipe.winePairing.pairingText}</p>
         </div>
       </div> `;
   recipeContent.innerHTML = html;
@@ -337,7 +346,7 @@ function ingredientsWindow(){
     
     ingredientsToggle.children[3].style.display = "none";
     ingredientsToggle.children[2].style.display = "none";
-    ingredientsToggle.children[1].children[0].style.display = "block";
+    document.getElementById("shopping-list").style.display = "inline-block";
     ingredientsToggle.children[0].style.display = "block";
     ingredientsToggle.style.backgroundColor = "white";
     document.getElementById("ingredients").innerHTML="Instructions";
@@ -373,8 +382,7 @@ function ingredientsWindow(){
 
     ingredientsToggle.children[3].style.display = "block";
     ingredientsToggle.children[2].style.display = "block";
-    ingredientsToggle.children[1].children[0].style.display = "none";
-    ingredientsToggle.style.backgroundColor = "rgba(191, 191, 189, 1)";
+    document.getElementById("shopping-list").style.display = "none";
     ingredientsToggle.children[0].style.display = "none";
     document.getElementById("ingredients").innerHTML="Ingredients";
   }
