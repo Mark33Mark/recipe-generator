@@ -8,8 +8,8 @@
  *                                                                                             *
  * =========================================================================================== */
 
-const spoonacularAPI = "3f02a89ca80e407492794df034986041";
-// const spoonacularAPI = "919b3550399d4761aced47f4afec99ca"
+// const spoonacularAPI = "3f02a89ca80e407492794df034986041";
+const spoonacularAPI = "919b3550399d4761aced47f4afec99ca"
 
 const userIngredient = document.querySelector("#recipeIngredient");
 const recipesFound = document.querySelector("#theRecipes");
@@ -310,6 +310,12 @@ function mealRecipeModal(meal) {
 
       <div id="toggleIngredients">
         <div class = "recipe-ingredients" style="display:none"></div>
+        <div style="background-color: rgba(191, 191, 189, 1); position: absolute;">
+          <button class="w3-button w3-green w3-margin-left w3-border w3-border-blue w3-round-large w3-margin-top w3-margin-bottom" 
+              onclick="copyIngredientsToText()" style="display:none">
+              Copy to Text File
+          </button>
+        </div>
         <div class = "recipe-instruct" style="display:block">
             <h3>Instructions:</h3>
             <p>${selectRecipe.instructions}</p>
@@ -325,13 +331,13 @@ function mealRecipeModal(meal) {
 /* == Ingredients window ======================================================================== */
 
 function ingredientsWindow(){
-
-  let ingredientsToggle = document.getElementById("toggleIngredients");
+  const ingredientsToggle = document.getElementById("toggleIngredients");
 
   if (ingredientsToggle.children[0].style.display === "none") {
     
+    ingredientsToggle.children[3].style.display = "none";
     ingredientsToggle.children[2].style.display = "none";
-    ingredientsToggle.children[1].style.display = "none";
+    ingredientsToggle.children[1].children[0].style.display = "block";
     ingredientsToggle.children[0].style.display = "block";
     ingredientsToggle.style.backgroundColor = "white";
     document.getElementById("ingredients").innerHTML="Instructions";
@@ -344,7 +350,7 @@ function ingredientsWindow(){
         <table class="w3-table-all">
           <tr>
             <td style = "width:6.5rem;"><img src="./img/noImagePlaceholder.jpg" /></td>
-            <td style = "vertical-align:middle;"><div class="w3-left-align">${selectRecipe.extendedIngredients[i].originalString}</div></td>
+            <td style = "vertical-align:middle;"><div class="w3-left-align necessary-ingredient">${selectRecipe.extendedIngredients[i].originalString}</div></td>
           </tr>
         </table>
         </div>`;
@@ -354,8 +360,8 @@ function ingredientsWindow(){
             <div class = "w3-padding">
               <table class="w3-table-all">
                 <tr>
-                  <td style = "width:6.5rem;"><img src="https://spoonacular.com/cdn/ingredients_100x100/${selectRecipe.extendedIngredients[i].image}" width = "100px" /></td>
-                  <td style = "vertical-align:middle;"><div class="w3-left-align">${selectRecipe.extendedIngredients[i].originalString}</div></td>
+                  <td style = "width:6.5rem;"><img src="https://spoonacular.com/cdn/ingredients_100x100/${selectRecipe.extendedIngredients[i].image}"/></td>
+                  <td style = "vertical-align:middle;"><div class="w3-left-align necessary-ingredient">${selectRecipe.extendedIngredients[i].originalString}</div></td>
                 </tr>
               </table>
             </div>`;
@@ -365,13 +371,32 @@ function ingredientsWindow(){
     
   } else {
 
+    ingredientsToggle.children[3].style.display = "block";
     ingredientsToggle.children[2].style.display = "block";
-    ingredientsToggle.children[1].style.display = "block";
+    ingredientsToggle.children[1].children[0].style.display = "none";
     ingredientsToggle.style.backgroundColor = "rgba(191, 191, 189, 1)";
     ingredientsToggle.children[0].style.display = "none";
     document.getElementById("ingredients").innerHTML="Ingredients";
-
   }
+}
+
+/* ============================================================================================ */
+
+function copyIngredientsToText(){
+
+  let recipeCardIngredient = document.querySelectorAll(".necessary-ingredient");
+  let recipeCardIngredients = [];
+
+  for (let i = 0; i < recipeCardIngredient.length; i++){
+  
+    recipeCardIngredients.push(recipeCardIngredient[i].innerHTML);
+  }
+
+  let text = recipeCardIngredients.toString();
+  text = text.split(",").join("\n");
+
+  let blob = new Blob([text], { type: "text/plain;charset=utf-8" });
+  saveAs(blob, `${selectRecipe.title}_ingredients-list.txt`);
 }
 
 /* == Events ==================================================================================== */
