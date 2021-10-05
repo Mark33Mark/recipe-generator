@@ -19,7 +19,7 @@
   font-variant: normal;
   text-transform: none;
   line-height: 1;
-
+  color: cornsilk;
   /* Better Font Rendering =========== */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -202,6 +202,7 @@
 }
 .icon-cross:before {
   content: "\ea0f";
+  color: rgba(115, 99, 98, 1);
 }
 .icon-checkmark:before {
   content: "\ea10";

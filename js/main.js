@@ -8,8 +8,9 @@
  *                                                                                             *
  * =========================================================================================== */
 
-const spoonacularAPI = "3f02a89ca80e407492794df034986041";
-// const spoonacularAPI = "919b3550399d4761aced47f4afec99ca"
+// const spoonacularAPI = "3f02a89ca80e407492794df034986041";
+const spoonacularAPI = "919b3550399d4761aced47f4afec99ca"
+
 
 const userIngredient = document.querySelector("#recipeIngredient");
 const recipesFound = document.querySelector("#theRecipes");
@@ -255,7 +256,7 @@ function listMe(recipes) {
     console.log(result);
 
     html += `
-        <div class = "w3-card-4 w3-margin w3-center recipe-card" style="flex: 0 1 30%; width:50%;" data-id = "${result.id}">
+        <div class = "w3-card-4 w3-margin w3-center recipe-card" style="flex: 0 1 30%; width:50%; border-radius: 20px;" data-id = "${result.id}">
             <div class = "meal-img">
                 <img src = "${result.image}" alt = "food">
             </div>
@@ -299,7 +300,8 @@ function mealRecipeModal(meal) {
       <h2 class = "recipe-title">${selectRecipe.title.toUpperCase()}</h2>
       <div class = "recipe-summary">
           <h3>Recipe idea:</h3>
-          <h4>Cuisines: ${selectRecipe.cuisines} </h4>
+          <h4>Cuisine: ${selectRecipe.cuisines} </h4>
+
           <p>${selectRecipe.summary}</p>
       </div>
       <button id="ingredients" 
@@ -315,7 +317,7 @@ function mealRecipeModal(meal) {
             <p>${selectRecipe.instructions}</p>
         </div>
         <div class = "recipe-meal-img">
-            <img src = "${selectRecipe.image}" alt = "">
+            <img src = "${selectRecipe.image}" alt = "" >
         </div>
       </div> `;
   recipeContent.innerHTML = html;
