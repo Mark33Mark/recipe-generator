@@ -297,11 +297,18 @@ function mealRecipeModal(meal) {
   // passing to global variable to build the ingredients list in a separate function.
   selectRecipe = meal;  
 
+  let cuisinesText = selectRecipe.cuisines.toString(); 
+  let cuisinesSpaced = cuisinesText.split(",").join(" - ");
+
+  let winesText = selectRecipe.winePairing.pairedWines.toString();
+  let winesSpaced = winesText.split(",").join(" - ");
+
+
   let html = `
       <h2 class = "recipe-title">${selectRecipe.title.toUpperCase()}</h2>
       <div class = "recipe-summary">
           <h3>Recipe idea:</h3>
-          <h4>Cuisine: ${selectRecipe.cuisines} </h4>
+          <h4>Cuisines: ${cuisinesSpaced} </h4>
 
           <p>${selectRecipe.summary}</p>
       </div>
@@ -314,7 +321,7 @@ function mealRecipeModal(meal) {
       <button id="saveToTextFile" 
         class="w3-button w3-white w3-border w3-border-blue w3-round-large w3-margin-top w3-margin-bottom"
         onclick = "saveIngredientsToTextFile()" style="display:none;">
-        Copy to Text File
+        Shopping List (text file)
       </button>
 
       <div id="toggleIngredients">
@@ -326,6 +333,10 @@ function mealRecipeModal(meal) {
         </div>
         <div class = "recipe-meal-img">
             <img src = "${selectRecipe.image}" alt = "" >
+        </div>
+        <div class = "wine-pairing">
+            <h3>Wine Pairing:</h3>
+            <div> ${selectRecipe.winePairing.pairingText} </div>
         </div>
       </div> `;
   recipeContent.innerHTML = html;
@@ -378,11 +389,10 @@ function ingredientsWindow(){
 
     ingredientsToggle.children[2].style.display = "block";
     ingredientsToggle.children[1].style.display = "block";
-    ingredientsToggle.style.backgroundColor = "rgba(191, 191, 189, 1)";
+    ingredientsToggle.style.backgroundColor = "rgba(202, 146, 101)";
     document.getElementById("saveToTextFile").style.display = "none";
     ingredientsToggle.children[0].style.display = "none";
     document.getElementById("ingredients").innerHTML="Ingredients";
-
   }
 }
 
