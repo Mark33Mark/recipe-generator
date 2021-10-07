@@ -1523,8 +1523,8 @@ a {
 
 .w3-white,
 .w3-hover-white:hover {
-  color: #000 !important;
-  background-color: #fff !important;
+  color: #000;
+  background-color: #fff;
   font-weight: 400;
   letter-spacing: 0.3px;
   font-size: 14px;
