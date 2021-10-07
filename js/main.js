@@ -11,6 +11,7 @@
 // const spoonacularAPI = "3f02a89ca80e407492794df034986041";
 const spoonacularAPI = "919b3550399d4761aced47f4afec99ca"
 
+
 const userIngredient = document.querySelector("#recipeIngredient");
 const recipesFound = document.querySelector("#theRecipes");
 const searchForm = document.querySelector("#search-form");
@@ -303,6 +304,7 @@ function mealRecipeModal(meal) {
       <div class = "recipe-summary">
           <h3>Recipe idea:</h3>
           <h4>Cuisine: ${selectRecipe.cuisines} </h4>
+
           <p>${selectRecipe.summary}</p>
       </div>
       <div id="toggleIngredients">
