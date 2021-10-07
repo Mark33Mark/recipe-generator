@@ -702,7 +702,8 @@ a {
   }
 }
 
-@media (min-width: 993px) {
+@media (max-width: 993px) {
+
   .w3-col.l1 {
     width: 8.33333%;
   }
@@ -860,9 +861,12 @@ a {
   .w3-hide-medium {
     display: none !important;
   }
+ 
 }
 
 @media (max-width: 992px) {
+ 
+
   .w3-sidebar.w3-collapse {
     display: none;
   }
@@ -1369,8 +1373,6 @@ a {
 }
 
 .w3-right {
-  float: right !important;
-    margin-left: 195px;
     text-align: center;
 }
 

@@ -334,7 +334,7 @@
 
 p, .recipe-instruct {
   font-weight: 300;
-  font-size: 12.5px;
+  font-size: 15px;
 }
 
 .recipe-summary {
@@ -454,10 +454,17 @@ p, .recipe-instruct {
   cursor: pointer;
 }
 
+.lettuce-img {
+  width: 115px;
+    height: 120px;
+    margin-right: 6px;
+}
 
 /* ============================================================= */
 
+
 @media (max-width: 601px) {
+  
 
   .meal-name h3{
     font-size: 1.1rem;
