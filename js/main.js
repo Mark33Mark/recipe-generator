@@ -304,11 +304,15 @@ function mealRecipeModal(meal) {
 
   let html = `
       <h2 class = "recipe-title">${selectRecipe.title.toUpperCase()}</h2>
+      <div class = "recipe-meal-img">
+            <img src = "${selectRecipe.image}" alt = "" >
+        </div>
       <div class = "recipe-summary">
           <h3>Recipe idea:</h3>
           <h4>Cuisines: ${cuisinesHyphen} </h4>
           <p>${selectRecipe.summary}</p>
       </div>
+
       <button id="ingredients" 
               class="w3-button w3-white w3-border w3-border-blue w3-round-large w3-margin-top w3-margin-bottom"
               onclick = "ingredientsWindow()">
@@ -325,6 +329,7 @@ function mealRecipeModal(meal) {
         Shopping List (text file)
       </button>
 
+
       <div id="toggleIngredients">
         <div class = "recipe-ingredients" style="display:none"></div>
 
@@ -332,9 +337,15 @@ function mealRecipeModal(meal) {
         </div>
 
         <div class = "recipe-instruct" style="display:block">
+        <button id="ingredients" 
+            class="w3-button w3-white w3-border w3-border-blue w3-round-large w3-margin-top w3-margin-bottom"
+            onclick = "ingredientsWindow()">
+      Ingredients
+    </button>
             <h3>Instructions:</h3>
             <p>${selectRecipe.instructions}</p>
         </div>
+
         <div class = "recipe-meal-img">
             <img src = "${selectRecipe.image}" alt = "" >
         </div>
@@ -344,6 +355,7 @@ function mealRecipeModal(meal) {
           <p> ${selectRecipe.winePairing.pairingText}</p>
 
         </div>
+
       </div> `;
   recipeContent.innerHTML = html;
   recipeContent.parentElement.classList.add("showRecipe");  

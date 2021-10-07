@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;500&display=swap');
 
@@ -1522,6 +1523,9 @@ a {
 .w3-hover-white:hover {
   color: #000 !important;
   background-color: #fff !important;
+  font-weight: 400;
+  letter-spacing: 0.3px;
+  font-size: 14px;
 }
 
 .w3-black,

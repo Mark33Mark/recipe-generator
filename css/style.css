@@ -42,10 +42,6 @@
 
 /* == Project Specific Settings ============================================================== */
 
-hr {
-  
-}
-
 #search-form {
   background: white;
 }
@@ -324,16 +320,31 @@ hr {
   opacity: 0.9;
 }
 
+
+.recipe-content {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
 .recipe-title{
   letter-spacing: 1px;
-  padding-bottom: 1rem;
   font-weight: 500;
 }
 
 p, .recipe-instruct {
   font-weight: 300;
+  font-size: 12.5px;
 }
 
+.recipe-summary {
+  border: 0.05px solid #f1f1f1;
+  padding: 0px 20px;
+  border-radius: 12px;
+  max-width: 1000px;
+  margin: 0;
+  max-height: 450px;
+}
 
 
 .recipe-category{
@@ -369,12 +380,7 @@ p, .recipe-instruct {
 .recipe-meal-img img{
   max-width: 30rem;
   max-height: 30rem;
-  border-radius: 5%;
-  -webkit-border-radius: 5%;
-  -moz-border-radius: 5%;
-  -ms-border-radius: 5%;
-  -o-border-radius: 5%;
-  margin: 0 auto;
+  border-radius: 20px;
   display: block;
 }
 
@@ -405,7 +411,13 @@ p, .recipe-instruct {
 }
 
 
-
+#toggleIngredients {
+  max-height: 450px;
+  border: 0.05px solid #f1f1f1;
+  padding: 0pc 20px;
+  border-radius: 12px;
+  max-width: 1000px;
+}
 
 .slidecontainer {
   width: 100%;
@@ -431,14 +443,14 @@ p, .recipe-instruct {
   appearance: none;
   width: 1rem;
   height: 1rem;
-  background:  rgb(0, 100, 80);
+  background:  var(--chocolate);
   cursor: pointer;
 }
 
 .slider::-moz-range-thumb {
   width: 1rem;
   height: 1rem;
-  background: rgb(0, 100, 80);
+  background: var(--chocolate);
   cursor: pointer;
 }
 
