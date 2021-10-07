@@ -476,10 +476,17 @@ p, .recipe-instruct {
   cursor: pointer;
 }
 
+.lettuce-img {
+  width: 115px;
+    height: 120px;
+    margin-right: 6px;
+}
 
 /* ============================================================= */
 
+
 @media (max-width: 601px) {
+  
 
   .meal-name h3{
     font-size: 1.1rem;
