@@ -74,7 +74,7 @@ Client requested features as implemented:
 ---
 ### 5. Installation  
 You can download the source code from the team repository located in: [ Github](https://github.com/Mark33Mark/recipe-generator) and open the index.html file to review the website inside your selected web browser.  
-Alternatively, the webpage has also been hosted via [URL: food.watsonised.com](https://food.watsonised.com)
+Alternatively, the webpage has also been hosted via [URL: eat.watsonised.com](https://eat.watsonised.com)
 
 ---
 ### 6. Usage  
@@ -121,7 +121,7 @@ Thanks to Spoonacular for what is a great API with excellent documention.  Their
   * [x]  Meet good quality coding standards (indentation, scoping, naming, etc) - we used prettier for the indentation and followed best practice for the other items.
   * [x]  Must not use alerts, confirms or prompts.  We used innerHTML method to write to the webpage any issues.
   * [x]  Must be interactive, that is accepts and responds to user input.  We achieved this through event monitoring in the JavaScript.
-  * [x]  Deployed at live URL, [food website](https://food.watsonised.com) 
+  * [x]  Deployed at live URL, [lettuce eat website](https://eat.watsonised.com) 
   * [x]  Application loads with no errors when inspected with Chrome DevTools.
   * [x]  Github repository contains our application code [Github location](https://github.com/Mark33Mark/recipe-generator)
   * [x]  Repository has a unique name; follows best practice for file structure; and naming conventions.
