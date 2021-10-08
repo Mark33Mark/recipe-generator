@@ -347,7 +347,7 @@ function mealRecipeModal(meal) {
         </div>
       </div>
 
-      <div id="wine-pairing" class = "w3-margin-top">
+      <div id="wine-pairing">
         <h3>Wine pairing:</h3>
         <p> ${winePairMessage}</p>
       </div>
