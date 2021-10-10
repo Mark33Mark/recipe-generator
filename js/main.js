@@ -9,8 +9,8 @@
  * =========================================================================================== */
 
 
-// const spoonacularAPI = "3f02a89ca80e407492794df034986041"; // mark@watsonised.com
-const spoonacularAPI = "0f8b03de54ab4bab815f3490682e4182";  // mark.watsonised@gmail.com
+ const spoonacularAPI = "3f02a89ca80e407492794df034986041"; // mark@watsonised.com
+// const spoonacularAPI = "0f8b03de54ab4bab815f3490682e4182";  // mark.watsonised@gmail.com
 // const spoonacularAPI = "919b3550399d4761aced47f4afec99ca"
 
 
@@ -295,56 +295,64 @@ function getMealRecipe(event) {
 function mealRecipeModal(meal) {
   console.log(meal);
 
+  mealResults.style.display = "none";
+  aQuote.style.display = "none";
+
   // passing to global variable to build the ingredients list in a separate function.
   selectRecipe = meal;  
 
   let cuisinesSpaced = selectRecipe.cuisines.toString();
   let cuisinesHyphen = cuisinesSpaced.split(",").join(" - ");
 
+  let winePairMessage;
+  if(!selectRecipe.winePairing.pairingText){ 
+    winePairMessage = "Sorry, we are unable to recommend a wine for you with this dish."; 
+  } else {
+    winePairMessage = selectRecipe.winePairing.pairingText;
+  }
 
   let html = `
+
+      <div class = "recipe-meal-img">
+        <img src = "${selectRecipe.image}" alt = "" >
+      </div>
+
       <h2 class = "recipe-title">${selectRecipe.title.toUpperCase()}</h2>
+
       <div class = "recipe-summary">
           <h3>Recipe idea:</h3>
           <h4>Cuisines: ${cuisinesHyphen} </h4>
           <p>${selectRecipe.summary}</p>
       </div>
-      <button id="ingredients" 
-              class="w3-button w3-white w3-border w3-border-blue w3-round-large w3-margin-top w3-margin-bottom"
-              onclick = "ingredientsWindow()">
-        Ingredients
-      </button>
-      <button id="shopping-list" class="w3-button w3-white w3-border w3-border-yellow w3-round-large w3-margin-top w3-margin-bottom" 
-        onclick="copyIngredientsToText()" style="display:none">
-        Shopping List (text file)
-      </button>
-
-      <button id="saveToTextFile" 
-        class="w3-button w3-white w3-border w3-border-blue w3-round-large w3-margin-top w3-margin-bottom"
-        onclick = "saveIngredientsToTextFile()" style="display:none;">
-        Shopping List (text file)
-      </button>
 
       <div id="toggleIngredients">
-        <div class = "recipe-ingredients" style="display:none"></div>
 
-        <div style="background-color: rgba(191, 191, 189, 1); position: absolute;">
-        </div>
+        <button id="ingredients" 
+          class="w3-button w3-white w3-border w3-border-blue w3-round-large w3-margin-top w3-margin-bottom"
+          onclick = "ingredientsWindow()">
+          Ingredients
+        </button>
+
+        <button id="shopping-list" 
+          class="w3-button w3-border w3-border-blue w3-round-large w3-margin" 
+          onclick="copyIngredientsToText()" style="display:none">
+          Shopping List (text file)
+        </button>
+      
+        <div class = "recipe-ingredients" style="display:none"></div>  
 
         <div class = "recipe-instruct" style="display:block">
-            <h3>Instructions:</h3>
-            <p>${selectRecipe.instructions}</p>
+          <h3>Instructions:</h3>
+          <p>${selectRecipe.instructions}</p>
         </div>
-        <div class = "recipe-meal-img">
-            <img src = "${selectRecipe.image}" alt = "" >
-        </div>
+      </div>
 
-        <div class = "w3-margin-top wine-pairing">
-          <h3>Wine pairing:</h3>
-          <p> ${selectRecipe.winePairing.pairingText}</p>
+      <div id="wine-pairing">
+        <h3>Wine pairing:</h3>
+        <p> ${winePairMessage}</p>
+      </div>
+      `;
 
-        </div>
-      </div> `;
   recipeContent.innerHTML = html;
   recipeContent.parentElement.classList.add("showRecipe");  
 }
@@ -352,15 +360,20 @@ function mealRecipeModal(meal) {
 /* == Ingredients window ======================================================================== */
 
 function ingredientsWindow(){
+
   const ingredientsToggle = document.getElementById("toggleIngredients");
 
-  if (ingredientsToggle.children[0].style.display === "none") {
+  if (ingredientsToggle.children[2].style.display === "none") {
     
+    ingredientsToggle.children[0].style.display = "inline-block";
+    ingredientsToggle.children[0].style.backgroundColor = "rgb(202, 146, 101)";
+    ingredientsToggle.children[0].style.color = "rgb(255, 255, 255)";
+    ingredientsToggle.children[1].style.display = "inline-block";
+    ingredientsToggle.children[1].style.backgroundColor = "rgb(202, 146, 101)";
+    ingredientsToggle.children[2].style.display = "block";
     ingredientsToggle.children[3].style.display = "none";
-    ingredientsToggle.children[2].style.display = "none";
-    document.getElementById("shopping-list").style.display = "inline-block";
-    ingredientsToggle.children[0].style.display = "block";
     ingredientsToggle.style.backgroundColor = "white";
+    document.getElementById("wine-pairing").style.display = "none";
     document.getElementById("ingredients").innerHTML="Instructions";
     
     let html = "";
@@ -371,37 +384,35 @@ function ingredientsWindow(){
         <table class="w3-table-all">
           <tr>
             <td style = "width:6.5rem;"><img src="./img/noImagePlaceholder.jpg" /></td>
-
             <td style = "vertical-align:middle;"><div class="w3-left-align necessary-ingredient">${selectRecipe.extendedIngredients[i].originalString}</div></td>
-
           </tr>
         </table>
         </div>`;
-        ingredientsToggle.children[0].innerHTML = html;
+        ingredientsToggle.children[2].innerHTML = html;
       } else {
         html += `
             <div class = "w3-padding">
               <table class="w3-table-all">
                 <tr>
-
                   <td style = "width:6.5rem;"><img src="https://spoonacular.com/cdn/ingredients_100x100/${selectRecipe.extendedIngredients[i].image}"/></td>
                   <td style = "vertical-align:middle;"><div class="w3-left-align necessary-ingredient">${selectRecipe.extendedIngredients[i].originalString}</div></td>
-
                 </tr>
               </table>
             </div>`;
-        ingredientsToggle.children[0].innerHTML = html;
+        ingredientsToggle.children[2].innerHTML = html;
       }
     }
    
   } else {
-
+    ingredientsToggle.children[0].style.display = "inline-block";
+    ingredientsToggle.children[0].style.backgroundColor = "rgb(255, 255, 255)";
+    ingredientsToggle.children[0].style.color = "rgb(0, 0, 0)";
+    ingredientsToggle.children[1].style.display = "none";
+    ingredientsToggle.children[2].style.display = "none";
     ingredientsToggle.children[3].style.display = "block";
-    ingredientsToggle.children[2].style.display = "block";
-    document.getElementById("shopping-list").style.display = "none";
-    ingredientsToggle.children[1].style.display = "block";
     ingredientsToggle.style.backgroundColor = "rgba(202, 146, 101)";
-    ingredientsToggle.children[0].style.display = "none";
+    document.getElementById("wine-pairing").style.display = "block";
+    document.getElementById("ingredients").innerHTML="Ingredients";
   }
 }
 /* ============================================================================================ */
@@ -432,6 +443,8 @@ mealList.addEventListener("click", getMealRecipe);
 
 recipeCloseBtn.addEventListener("click", () => {
   recipeContent.parentElement.classList.remove("showRecipe");
+  mealResults.style.display = "block";
+  aQuote.style.display = "block";
 });
 
 /* == User Preferences Events ============================================================== */

@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;500&display=swap');
 
@@ -701,7 +702,8 @@ a {
   }
 }
 
-@media (min-width: 993px) {
+@media (max-width: 993px) {
+
   .w3-col.l1 {
     width: 8.33333%;
   }
@@ -859,9 +861,12 @@ a {
   .w3-hide-medium {
     display: none !important;
   }
+ 
 }
 
 @media (max-width: 992px) {
+ 
+
   .w3-sidebar.w3-collapse {
     display: none;
   }
@@ -1239,7 +1244,7 @@ a {
 .w3-jumbo {
   font-size: 60px !important;
   color: #795548;
-  margin-top: 250px;
+  margin: 220px 0px 40px 0px;
 }
 
 .w3-left-align {
@@ -1368,8 +1373,6 @@ a {
 }
 
 .w3-right {
-  float: right !important;
-    margin-left: 195px;
     text-align: center;
 }
 
@@ -1520,8 +1523,11 @@ a {
 
 .w3-white,
 .w3-hover-white:hover {
-  color: #000 !important;
-  background-color: #fff !important;
+  color: #000;
+  background-color: #fff;
+  font-weight: 400;
+  letter-spacing: 0.3px;
+  font-size: 14px;
 }
 
 .w3-black,
